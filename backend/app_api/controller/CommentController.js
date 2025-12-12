@@ -57,7 +57,7 @@ const updateComment = async function (req, res) {
     } catch (error) {
         createResponse(res, 400, error);
     }
-    createResponse(res, 200, { status: "başarılı" });
+    
 }
 
 const deleteComment = async function (req, res) {
