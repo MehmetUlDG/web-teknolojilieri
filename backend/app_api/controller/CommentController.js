@@ -42,7 +42,7 @@ const getComment = async function (req, res) {
 };
 const updateComment = async function (req, res) {
     try {
-        await Venue.findById(req.params.venueid).select("commnets").exec().then(function (venue) {
+        await Venue.findById(req.params.venueid).select("comments").exec().then(function (venue) {
             try {
                 let comment = venue.comments.id(req.params.commentid);
                 comment.set(req.body);
