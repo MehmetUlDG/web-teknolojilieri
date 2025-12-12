@@ -40,6 +40,7 @@ const getComment = async function (req, res) {
         createResponse(res, "404", "Mekan bulunamadı");
     }
 };
+// Koddaki hatalar kontrol edildi ve redeploy için taze commit için yazılmıştır.
 const updateComment = async function (req, res) {
     try {
         await Venue.findById(req.params.venueid).select("comments").exec().then(function (venue) {
@@ -57,7 +58,6 @@ const updateComment = async function (req, res) {
     } catch (error) {
         createResponse(res, 400, error);
     }
-    
 }
 
 const deleteComment = async function (req, res) {
