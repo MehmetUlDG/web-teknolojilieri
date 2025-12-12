@@ -13,6 +13,7 @@ const addComment = async function (req, res) {
         createResponse(res, 400, { status: "Yorum ekleme başarısız!" });
     }
 }
+// Koddaki hatalar kontrol edildi ve redeploy için taze commit için yazılmıştır.
 const getComment = async function (req, res) {
     try {
         await Venue.findById(req.params.venueid).select("name comments").exec().then(function (venue) {
@@ -40,7 +41,7 @@ const getComment = async function (req, res) {
         createResponse(res, "404", "Mekan bulunamadı");
     }
 };
-// Koddaki hatalar kontrol edildi ve redeploy için taze commit için yazılmıştır.
+
 const updateComment = async function (req, res) {
     try {
         await Venue.findById(req.params.venueid).select("comments").exec().then(function (venue) {
