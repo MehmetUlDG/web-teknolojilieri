@@ -2,7 +2,7 @@
     "version":2,
     "builds":[
         {
-            "src":"app.js",
+            "source":"app.js",
             "use":"@vercel/node",
             "config":{
                 "maxLambdaSize":"10mb",
@@ -18,22 +18,22 @@
     ],
         "routes":[
             {
-                "src":"/api/(.*)",
+                "source":"/api/(.*)",
                 "dest":"/app.js",
                 "methods":["GET","POST","PUT","DELETE","PATCH","OPTIONS"]
             },
             {
-                "src":"/(.*)",
+                "source":"/(.*)",
                 "dest":"/app.js"
             },
             {
-                "src":"/",
+                "source":"/",
                 "dest":"/app.js"
             }
         ],
         "headers":[
             {
-                "src":"/api/(.*)",
+                "source":"/api/(.*)",
                 "headers":[
                     {"key":"Access-Control-Allow-Credentials","value":"true"},
                     {"key":"Access-Control-Allow-Origin","value":"*"},
