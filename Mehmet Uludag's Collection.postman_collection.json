@@ -1,0 +1,609 @@
+{
+	"info": {
+		"_postman_id": "10e3bff8-210d-47c8-94a0-a6db14d7f138",
+		"name": "Mehmet Uludag's Collection",
+		"description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "50779643",
+		"_collection_link": "https://akullanan4-9815236.postman.co/workspace/Mehmet-Uluda%25C4%259F's-Workspace~79638b5d-d9ed-474d-8006-44b60afe2799/collection/50779643-10e3bff8-210d-47c8-94a0-a6db14d7f138?action=share&source=collection_link&creator=50779643"
+	},
+	"item": [
+		{
+			"name": "NearByVenues",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    });"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "https://web-teknolojilieri.vercel.app/api/venues",
+					"protocol": "https",
+					"host": [
+						"web-teknolojilieri",
+						"vercel",
+						"app"
+					],
+					"path": [
+						"api",
+						"venues"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddVenue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var id = pm.response.json()._id;\r",
+							"pm.environment.set(\"venueid\", id);\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    });"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Barida Cam Kafe",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "Süleyman Demirel Üniversitesi",
+							"type": "text"
+						},
+						{
+							"key": "foodanddrink",
+							"value": "çay,kahve,pasta",
+							"type": "text"
+						},
+						{
+							"key": "lat",
+							"value": "37",
+							"type": "text"
+						},
+						{
+							"key": "long",
+							"value": "30",
+							"type": "text"
+						},
+						{
+							"key": "day1",
+							"value": "Pazartesi-Cuma",
+							"type": "text"
+						},
+						{
+							"key": "open1",
+							"value": "9:00",
+							"type": "text"
+						},
+						{
+							"key": "close1",
+							"value": "17:00",
+							"type": "text"
+						},
+						{
+							"key": "isClosed1",
+							"value": "false",
+							"type": "text"
+						},
+						{
+							"key": "open2",
+							"value": "9:00",
+							"type": "text"
+						},
+						{
+							"key": "close2",
+							"value": "17:00",
+							"type": "text"
+						},
+						{
+							"key": "isClosed2",
+							"value": "false",
+							"type": "text"
+						},
+						{
+							"key": "day2",
+							"value": "Cumartesi-Pazar",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://web-teknolojilieri.vercel.app/api/venues",
+					"protocol": "https",
+					"host": [
+						"web-teknolojilieri",
+						"vercel",
+						"app"
+					],
+					"path": [
+						"api",
+						"venues"
+					]
+				},
+				"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+			},
+			"response": []
+		},
+		{
+			"name": "GetVenue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    });"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://web-teknolojilieri.vercel.app/api/venues/:venueid",
+					"protocol": "https",
+					"host": [
+						"web-teknolojilieri",
+						"vercel",
+						"app"
+					],
+					"path": [
+						"api",
+						"venues",
+						":venueid"
+					],
+					"variable": [
+						{
+							"key": "venueid",
+							"value": "693c7b68a7c6f883d50b4784"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateVenue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    });"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Barida Cam Kafe",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "Süleyman Demirel Üniversitesi",
+							"type": "text"
+						},
+						{
+							"key": "foodanddrink",
+							"value": "süt,kurabiye,magnolya",
+							"type": "text"
+						},
+						{
+							"key": "lat",
+							"value": "37",
+							"type": "text"
+						},
+						{
+							"key": "long",
+							"value": "30",
+							"type": "text"
+						},
+						{
+							"key": "day1",
+							"value": "Pazartesi-Salı",
+							"type": "text"
+						},
+						{
+							"key": "open1",
+							"value": "08:00",
+							"type": "text"
+						},
+						{
+							"key": "close1",
+							"value": "18:00",
+							"type": "text"
+						},
+						{
+							"key": "isClosed1",
+							"value": "false",
+							"type": "text"
+						},
+						{
+							"key": "open2",
+							"value": "08:00",
+							"type": "text"
+						},
+						{
+							"key": "close2",
+							"value": "18:00",
+							"type": "text"
+						},
+						{
+							"key": "isClosed2",
+							"value": "true",
+							"type": "text"
+						},
+						{
+							"key": "day2",
+							"value": "Cumartesi-Pazar",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://web-teknolojilieri.vercel.app/api/venues/:venueid",
+					"protocol": "https",
+					"host": [
+						"web-teknolojilieri",
+						"vercel",
+						"app"
+					],
+					"path": [
+						"api",
+						"venues",
+						":venueid"
+					],
+					"variable": [
+						{
+							"key": "venueid",
+							"value": "693c7b68a7c6f883d50b4784"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteVenue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://web-teknolojilieri.vercel.app/api/venues/:venueid",
+					"protocol": "https",
+					"host": [
+						"web-teknolojilieri",
+						"vercel",
+						"app"
+					],
+					"path": [
+						"api",
+						"venues",
+						":venueid"
+					],
+					"variable": [
+						{
+							"key": "venueid",
+							"value": "693c7b68a7c6f883d50b4784"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddComment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var id = pm.response.json()._id\r",
+							"pm.environment.set(\"commentid\", id);\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"     pm.response.to.have.status(201);\r",
+							"     });"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "author",
+							"value": "Mehmet Uludag",
+							"type": "text"
+						},
+						{
+							"key": "rating",
+							"value": "5",
+							"type": "text"
+						},
+						{
+							"key": "text",
+							"value": "Kurabiyeler gayet güzel",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://web-teknolojilieri.vercel.app/api/venues/:venueid/comments",
+					"protocol": "https",
+					"host": [
+						"web-teknolojilieri",
+						"vercel",
+						"app"
+					],
+					"path": [
+						"api",
+						"venues",
+						":venueid",
+						"comments"
+					],
+					"variable": [
+						{
+							"key": "venueid",
+							"value": "693c7b68a7c6f883d50b4784"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetComment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var id = pm.response.json().comment._id\r",
+							"pm.environment.set(\"commentid\", id);\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"     pm.response.to.have.status(200);\r",
+							"     });"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "https://web-teknolojilieri.vercel.app/api/venues/:venueid/comments/:commentid",
+					"protocol": "https",
+					"host": [
+						"web-teknolojilieri",
+						"vercel",
+						"app"
+					],
+					"path": [
+						"api",
+						"venues",
+						":venueid",
+						"comments",
+						":commentid"
+					],
+					"variable": [
+						{
+							"key": "venueid",
+							"value": "693c7b68a7c6f883d50b4784"
+						},
+						{
+							"key": "commentid",
+							"value": "693c7bfea3edf7358f1eae1f"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateComment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"     pm.response.to.have.status(201);\r",
+							"     });"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "author",
+							"value": "Mehmet Uludag",
+							"type": "text"
+						},
+						{
+							"key": "rating",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "text",
+							"value": "Kurabiyeler kotu",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://web-teknolojilieri.vercel.app/api/venues/:venueid/comments/:commentid",
+					"protocol": "https",
+					"host": [
+						"web-teknolojilieri",
+						"vercel",
+						"app"
+					],
+					"path": [
+						"api",
+						"venues",
+						":venueid",
+						"comments",
+						":commentid"
+					],
+					"variable": [
+						{
+							"key": "venueid",
+							"value": "693c7b68a7c6f883d50b4784"
+						},
+						{
+							"key": "commentid",
+							"value": "693c7bfea3edf7358f1eae1f"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteComment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "https://web-teknolojilieri.vercel.app/api/venues/:venueid/comments/:commentid",
+					"protocol": "https",
+					"host": [
+						"web-teknolojilieri",
+						"vercel",
+						"app"
+					],
+					"path": [
+						"api",
+						"venues",
+						":venueid",
+						"comments",
+						":commentid"
+					],
+					"variable": [
+						{
+							"key": "venueid",
+							"value": "693c7b68a7c6f883d50b4784"
+						},
+						{
+							"key": "commentid",
+							"value": "693c7bfea3edf7358f1eae1f"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

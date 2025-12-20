@@ -1,0 +1,146 @@
+var mongoose = require('mongoose');
+var Venue = mongoose.model("venue");
+
+const createResponse = function (res, status, content) {
+    res.status(status).json(content);
+}
+const addComment = async function (req, res) {
+    try {
+        await getUser(req, res, (req, res, userName) => {
+            Venue.findById(req.params.venueid).select("comments").exec().then((incomingVenue) => {
+                createComment(req, res, incomingVenue,userName);
+            });
+        });
+    } catch (error) {
+        createResponse(res, 400, { status: "Yorum ekleme başarısız!" });
+    }
+}
+const getComment = async function (req, res) {
+    try {
+        await Venue.findById(req.params.venueid).select("name comments").exec().then(function (venue) {
+
+            var response, comment;
+            if (!venue) {
+                createResponse(res, "404", "Mekanid yanlış");
+            } else if (venue.comments.id(req.params.commentid)) {
+                comment = venue.comments.id(req.params.commentid);
+
+                response = {
+                    venue: {
+                        name: venue.name,
+                        id: req.params.id,
+                    },
+                    comment: comment
+                }
+                createResponse(res, "200", response);
+            } else {
+
+                createResponse(res, "404", "Yorum id yanlış");
+            }
+        });
+    } catch (error) {
+        createResponse(res, "404", "Mekan bulunamadı");
+    }
+};
+const updateComment = async function (req, res) {
+    try {
+        await Venue.findById(req.params.venueid).select("comments").exec().then(function (venue) {
+            try {
+                let comment = venue.comments.id(req.params.commentid);
+                comment.set(req.body);
+                venue.save().then(function () {
+                    updateRating(venue._id, false);
+                    createResponse(res, 201, comment);
+                })
+            } catch (err) {
+                createResponse(res, 400, err);
+            }
+        })
+    } catch (error) {
+        createResponse(res, 400, error);
+    }
+}
+const deleteComment = async function (req, res) {
+    try {
+        await Venue.findById(req.params.venueid).select("comments").exec().then(function (venue) {
+            try {
+                let comment = venue.comments.id(req.params.commentid);
+                comment.deleteOne();
+                venue.save().then(function () {
+                    updateRating(venue._id, true);
+                    createResponse(res, 200, { status: comment.author + " isimli kişinin yorumu silindi" });
+                })
+            } catch (error) {
+                createResponse(res, 400, error);
+            }
+        })
+    } catch (error) {
+        createResponse(res, 400, error);
+    }
+    createResponse(res, 200, { status: "başarılı" });
+}
+var calculateLastRating = function (incomingVenue, isDeleted) {
+    var i,
+        numComments,
+        averageRating,
+        sumRating
+
+    var numComments = incomingVenue.comments.length;
+    if (incomingVenue.comments) {
+        if (incomingVenue.comments.length == 0 && isDeleted) {
+            averageRating = 0;
+        }
+        else {
+            for (i = 0; i < numComments; i++) {
+                sumRating = sumRating + incomingVenue.comments[i].rating;
+            }
+            averageRating = Math.cell(sumRating / numComments);
+        }
+        incomingVenue.rating = averageRating;
+        incomingVenue.save();
+    }
+};
+var updateRating = function (isDeleted, venueid) {
+    Venue.findById(venueid).select("rating comments").exec().then(function (venue) {
+        calculateLastRating(venue, isDeleted);
+    });
+}
+const createComment = function (req, res, incomingVenue,author) {
+    try {
+        incomingVenue.comments.push({
+            author:author,
+            rating:req.body.rating,
+            text:req.body.text
+        });
+        incomingVenue.save().then(function (venue) {
+            var comment;
+            updateRating(venue._id);
+            comment=venue.comments[venue.comments.length-1];
+            createResponse(res, "201", comment);
+        });
+    }
+    catch (error) {
+        createResponse(res, "400",{status:"Yorum oluşturulamadı!"} );
+    }
+};
+const getUser=async(req,res,callback)=>{
+    if(req.auth && req.auth.email){
+        try{
+            await UserActivation.findOne({email:req.auth.email}).then(function(user){
+                callback(req,res,user.name);
+            })
+        }catch(error){
+            createResponse(res,400,{status:"Kullanıcı bulunamadı"});
+        }
+    }else{
+        createResponse(res,400,{status:"Token girilmedi"});
+    }
+};
+
+module.exports = {
+    addComment,
+    getComment,
+    updateComment,
+    deleteComment
+}
+
