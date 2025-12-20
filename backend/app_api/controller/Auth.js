@@ -7,9 +7,6 @@ const createResponse=function(res,status,content){
 };
 
 const signUp=async function (req,res){
-    if(!req.body.name||!req.body.email||!req.body.password){
-        createResponse(res,400,{status:"Tüm alanlar gereklidir!"});
-    }
   const user=new User();
   user.name=req.body.name;
   user.email=req.body.email;
@@ -19,6 +16,9 @@ const signUp=async function (req,res){
     user.role="user";
   }
   user.setPassword(req.body.password);
+  if(!req.body.name||!req.body.email||!req.body.password){
+        createResponse(res,400,{status:"Tüm alanlar gereklidir!"});
+    }
  try{
     await user.save().then((newUser)=>{
         let generatedToken=newUser.generateToken();
@@ -29,9 +29,7 @@ const signUp=async function (req,res){
 }};
 
 const login=async function (req,res) {
-    if(!req.body.email||!req.body.password){
-        createResponse(res,400,{status:"Tüm alanlar gereklidir!"});
-    }
+   
     passport.authenticate("local",(err,currentUser,info)=>{
         if(currentUser){
             let generatedToken=currentUser.generateToken();
@@ -39,6 +37,9 @@ const login=async function (req,res) {
         }else 
             createResponse(res,400,{status:"Kullanıcı adı veya şifre hatalı"});
     })(req,res);
+     if(!req.body.email||!req.body.password){
+        createResponse(res,400,{status:"Tüm alanlar gereklidir!"});
+    }
 };
 const verifyAdmin=(req,res,next)=>{
     if(req.payload && req.payload.role=="admin"){
