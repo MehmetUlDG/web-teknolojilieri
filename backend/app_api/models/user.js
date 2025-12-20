@@ -20,8 +20,8 @@ const user=new mongoose.Schema({
         enum:["user","admin"],
         default:"user"
     },
-    hash:String,
-    salt:String,
+        hash:String,
+        salt:String,
     token:{
         type:String,
     },
