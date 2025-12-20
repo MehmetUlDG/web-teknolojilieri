@@ -16,7 +16,7 @@ const signUp = async function (req, res) {
         user.role = "user";
     }
     user.setPassword(req.body.password);
-   // if (!req.body.name || !req.body.email || !req.body.password) {
+    // if (!req.body.name || !req.body.email || !req.body.password) {
     //    createResponse(res, 400, { status: "Tüm alanlar gereklidir!" });
     //}
     try {
@@ -38,8 +38,8 @@ const login = async function (req, res) {
         } else
             createResponse(res, 400, { status: "Kullanıcı adı veya şifre hatalı" });
     })(req, res);
-   // if (!req.body.email || !req.body.password) {
-      //  createResponse(res, 400, { status: "Tüm alanlar gereklidir!" });
+    // if (!req.body.email || !req.body.password) {
+    //  createResponse(res, 400, { status: "Tüm alanlar gereklidir!" });
     //}
 };
 const verifyAdmin = (req, res, next) => {
