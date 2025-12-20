@@ -2,6 +2,7 @@ const passport = require("passport");
 const mongoose = require("mongoose");
 const { token } = require("morgan");
 const User = mongoose.model("user");
+
 const createResponse = function (res, status, content) {
     res.status(status).json(content);
 };
