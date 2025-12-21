@@ -201,7 +201,3 @@ src/
 - React Router ile sayfa yönlendirme
 - Google Maps entegrasyonu
 
-
-## Geliştirici
-
-Asım Sinan Yüksel - 2025

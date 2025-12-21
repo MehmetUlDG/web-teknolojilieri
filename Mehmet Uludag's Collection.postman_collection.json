@@ -5,7 +5,7 @@
 		"description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "50779643",
-		"_collection_link": "https://akullanan4-9815236.postman.co/workspace/Mehmet-Uluda%25C4%259F's-Workspace~79638b5d-d9ed-474d-8006-44b60afe2799/collection/50779643-10e3bff8-210d-47c8-94a0-a6db14d7f138?action=share&source=collection_link&creator=50779643"
+		"_collection_link": "https://akullanan4-9815236.postman.co/workspace/Mehmet-Uluda%C4%9F's-Workspace~79638b5d-d9ed-474d-8006-44b60afe2799/collection/50779643-10e3bff8-210d-47c8-94a0-a6db14d7f138?action=share&source=collection_link&creator=50779643"
 	},
 	"item": [
 		{
@@ -15,9 +15,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"    });"
+							""
 						],
 						"type": "text/javascript",
 						"packages": {},
@@ -36,7 +34,7 @@
 					"urlencoded": []
 				},
 				"url": {
-					"raw": "https://web-teknolojilieri.vercel.app/api/venues",
+					"raw": "https://web-teknolojilieri.vercel.app/api/venues?lat=37&long=35",
 					"protocol": "https",
 					"host": [
 						"web-teknolojilieri",
@@ -46,6 +44,16 @@
 					"path": [
 						"api",
 						"venues"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "37"
+						},
+						{
+							"key": "long",
+							"value": "35"
+						}
 					]
 				}
 			},
@@ -58,11 +66,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"var id = pm.response.json()._id;\r",
-							"pm.environment.set(\"venueid\", id);\r",
-							"pm.test(\"Status code is 201\", function () {\r",
-							"    pm.response.to.have.status(201);\r",
-							"    });"
+							""
 						],
 						"type": "text/javascript",
 						"packages": {},
@@ -71,6 +75,16 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTQ3ZDc3NTdiM2E3Y2UzYzM3NGVmODUiLCJlbWFpbCI6ImFkbWluQGFkbWkuY29tIiwibmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY2MzE1ODk2LCJleHAiOjE3NjYzMTk0OTZ9.NvZCOsOpds5JwpW7w1VH0ImiU2YySIis33OWXWrva1s",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -78,7 +92,7 @@
 					"urlencoded": [
 						{
 							"key": "name",
-							"value": "Barida Cam Kafe",
+							"value": "Kafe ",
 							"type": "text"
 						},
 						{
@@ -196,7 +210,7 @@
 					"variable": [
 						{
 							"key": "venueid",
-							"value": "693c7b68a7c6f883d50b4784"
+							"value": "6947dc7d462b80470808b4ee"
 						}
 					]
 				}
@@ -210,9 +224,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 201\", function () {\r",
-							"    pm.response.to.have.status(201);\r",
-							"    });"
+							""
 						],
 						"type": "text/javascript",
 						"packages": {},
@@ -221,6 +233,16 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTQ3ZDc3NTdiM2E3Y2UzYzM3NGVmODUiLCJlbWFpbCI6ImFkbWluQGFkbWkuY29tIiwibmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY2MzE1ODk2LCJleHAiOjE3NjYzMTk0OTZ9.NvZCOsOpds5JwpW7w1VH0ImiU2YySIis33OWXWrva1s",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {
@@ -309,7 +331,7 @@
 					"variable": [
 						{
 							"key": "venueid",
-							"value": "693c7b68a7c6f883d50b4784"
+							"value": "6947dc7d462b80470808b4ee"
 						}
 					]
 				}
@@ -334,6 +356,16 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTQ3ZDc3NTdiM2E3Y2UzYzM3NGVmODUiLCJlbWFpbCI6ImFkbWluQGFkbWkuY29tIiwibmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY2MzE1ODk2LCJleHAiOjE3NjYzMTk0OTZ9.NvZCOsOpds5JwpW7w1VH0ImiU2YySIis33OWXWrva1s",
+							"type": "string"
+						}
+					]
+				},
 				"method": "DELETE",
 				"header": [],
 				"url": {
@@ -352,7 +384,7 @@
 					"variable": [
 						{
 							"key": "venueid",
-							"value": "693c7b68a7c6f883d50b4784"
+							"value": "6947dc7d462b80470808b4ee"
 						}
 					]
 				}
@@ -366,11 +398,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"var id = pm.response.json()._id\r",
-							"pm.environment.set(\"commentid\", id);\r",
-							"pm.test(\"Status code is 201\", function () {\r",
-							"     pm.response.to.have.status(201);\r",
-							"     });"
+							""
 						],
 						"type": "text/javascript",
 						"packages": {},
@@ -379,6 +407,16 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTQ3ZDc3NTdiM2E3Y2UzYzM3NGVmODUiLCJlbWFpbCI6ImFkbWluQGFkbWkuY29tIiwibmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY2MzE1ODk2LCJleHAiOjE3NjYzMTk0OTZ9.NvZCOsOpds5JwpW7w1VH0ImiU2YySIis33OWXWrva1s",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -386,7 +424,7 @@
 					"urlencoded": [
 						{
 							"key": "author",
-							"value": "Mehmet Uludag",
+							"value": "admin",
 							"type": "text"
 						},
 						{
@@ -418,7 +456,7 @@
 					"variable": [
 						{
 							"key": "venueid",
-							"value": "693c7b68a7c6f883d50b4784"
+							"value": "6947ddf2462b80470808b4fa"
 						}
 					]
 				}
@@ -472,11 +510,11 @@
 					"variable": [
 						{
 							"key": "venueid",
-							"value": "693c7b68a7c6f883d50b4784"
+							"value": "6947ddf2462b80470808b4fa"
 						},
 						{
 							"key": "commentid",
-							"value": "693c7bfea3edf7358f1eae1f"
+							"value": "6947e4382383b15ebcf953e0"
 						}
 					]
 				}
@@ -501,6 +539,16 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTQ3ZDc3NTdiM2E3Y2UzYzM3NGVmODUiLCJlbWFpbCI6ImFkbWluQGFkbWkuY29tIiwibmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY2MzE1ODk2LCJleHAiOjE3NjYzMTk0OTZ9.NvZCOsOpds5JwpW7w1VH0ImiU2YySIis33OWXWrva1s",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {
@@ -508,7 +556,7 @@
 					"urlencoded": [
 						{
 							"key": "author",
-							"value": "Mehmet Uludag",
+							"value": "admin",
 							"type": "text"
 						},
 						{
@@ -541,11 +589,11 @@
 					"variable": [
 						{
 							"key": "venueid",
-							"value": "693c7b68a7c6f883d50b4784"
+							"value": "6947ddf2462b80470808b4fa"
 						},
 						{
 							"key": "commentid",
-							"value": "693c7bfea3edf7358f1eae1f"
+							"value": "6947e4382383b15ebcf953e0"
 						}
 					]
 				}
@@ -570,6 +618,16 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTQ3ZDc3NTdiM2E3Y2UzYzM3NGVmODUiLCJlbWFpbCI6ImFkbWluQGFkbWkuY29tIiwibmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY2MzE1ODk2LCJleHAiOjE3NjYzMTk0OTZ9.NvZCOsOpds5JwpW7w1VH0ImiU2YySIis33OWXWrva1s",
+							"type": "string"
+						}
+					]
+				},
 				"method": "DELETE",
 				"header": [],
 				"body": {
@@ -594,12 +652,95 @@
 					"variable": [
 						{
 							"key": "venueid",
-							"value": "693c7b68a7c6f883d50b4784"
+							"value": "6947ddf2462b80470808b4fa"
 						},
 						{
 							"key": "commentid",
-							"value": "693c7bfea3edf7358f1eae1f"
+							"value": "6947e4382383b15ebcf953e0"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LoginApp",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "admin@admi.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "1234",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://web-teknolojilieri.vercel.app/api/login",
+					"protocol": "http",
+					"host": [
+						"web-teknolojilieri",
+						"vercel",
+						"app"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SignUpApp",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "admin",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "admin@admi.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "1234",
+							"type": "text"
+						},
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://web-teknolojilieri.vercel.app/api/signup",
+					"protocol": "http",
+					"host": [
+						"web-teknolojilieri",
+						"vercel",
+						"app"
+					],
+					"path": [
+						"api",
+						"signup"
 					]
 				}
 			},

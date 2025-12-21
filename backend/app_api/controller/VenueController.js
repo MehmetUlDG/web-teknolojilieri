@@ -52,6 +52,16 @@ const listVenues = function (req, res) {
         createResponse(res, "404", error);
     }
 };
+const getAllVenues=async function (req,res){
+    try {
+        await Venue.find(req.params).exec().then(function (venue){
+            createResponse(res,200,venue);
+        });
+    } 
+    catch (error) {
+        createResponse(res,400,error);
+    }
+};
 
 const addVenue = async function (req, res) {
     try {
@@ -135,6 +145,7 @@ module.exports = {
     listVenues,
     addVenue,
     getVenue,
+    getAllVenues,
     updateVenue,
     deleteVenue
 }
