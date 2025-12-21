@@ -35,6 +35,9 @@ user.methods.checkPassword=function(password){
     return this.hash===hash;
 };
 user.methods.generateToken=function(){
+    if (!process.env.JWT_SECRET) {
+        throw new Error("JWT_SECRET ortam değişkeni bulunamadı!");
+    }
     return jwt.sign(
         {
             _id:this._id,

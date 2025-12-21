@@ -8,30 +8,48 @@ const createResponse = function (res, status, content) {
 };
 
 const signUp = async function (req, res) {
+    console.log(req.body);
+    if (!req.body.name || !req.body.email || !req.body.password) {
+        createResponse(res, 400, { status: "Tüm alanlar gereklidir!" });
+    }
     const user = new User();
     user.name = req.body.name;
     user.email = req.body.email;
-    if (req.body.email === "admin@admin.com") {
+    if (req.body.name === "admin") {
         user.role = "admin";
     } else {
         user.role = "user";
     }
+    if (req.body.password) {
     user.setPassword(req.body.password);
-    // if (!req.body.name || !req.body.email || !req.body.password) {
-    //    createResponse(res, 400, { status: "Tüm alanlar gereklidir!" });
-    //}
+} else {
+    throw new Error("Şifre boş olamaz.");
+}
+    user.setPassword(req.body.password);
+
     try {
         await user.save().then((newUser) => {
             let generatedToken = newUser.generateToken();
             createResponse(res, 200, { token: generatedToken });
         });
     } catch (error) {
-        createResponse(res, 400, { status: "Kayıt başarısız!" });
+        console.error("Hata Detayı:", error); // Vercel loglarında hatanın ismini görmek için
+    
+    // Hangi hata olduğunu anlamak için spesifik mesajlar dönelim
+    let mesaj = "Bir hata oluştu";
+    
+    if (error.name === "ValidationError") mesaj = "Veri doğrulama hatası: " + error.message;
+    if (error.code === 11000) mesaj = "Bu e-posta zaten kayıtlı!";
+    if (error.message.includes("JWT_SECRET")) mesaj = "Sunucu yapılandırma hatası (JWT)";
+        createResponse(res, 400, { status: "Kayıt başarısız!",mesaj: mesaj,
+        errorType: error.name });
     }
 };
 
 const login = async function (req, res) {
-
+    if (!req.body.email || !req.body.password) {
+        createResponse(res, 400, { status: "Tüm alanlar gereklidir!" });
+    }
     passport.authenticate("local", (err, currentUser, info) => {
         if (currentUser) {
             let generatedToken = currentUser.generateToken();
@@ -39,9 +57,6 @@ const login = async function (req, res) {
         } else
             createResponse(res, 400, { status: "Kullanıcı adı veya şifre hatalı" });
     })(req, res);
-    // if (!req.body.email || !req.body.password) {
-    //  createResponse(res, 400, { status: "Tüm alanlar gereklidir!" });
-    //}
 };
 const verifyAdmin = (req, res, next) => {
     if (req.payload && req.payload.role == "admin") {
