@@ -48,6 +48,9 @@ router
     .route("/venues")
     .post(auth,ctrlAuth.verifyAdmin,ctrlVenues.addVenue);
 router
+    .route("/venues")
+    .get(auth,ctrlAuth.verifyAdmin,ctrlVenues.getAllVenues);
+router
     .route("/venues/:venueid")
     .get(ctrlVenues.getVenue);
 router
