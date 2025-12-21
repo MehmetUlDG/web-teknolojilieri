@@ -130,7 +130,8 @@ const getUser=async(req,res,callback)=>{
                 callback(req,res,user.name);
             })
         }catch(error){
-            createResponse(res,400,{status:"Kullanıcı bulunamadı",error});
+            console.log(error.message);
+            createResponse(res,400,{status:"Kullanıcı bulunamadı"});
         }
     }else{
         createResponse(res,400,{status:"Token girilmedi"});
