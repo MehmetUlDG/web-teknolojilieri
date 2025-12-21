@@ -126,7 +126,7 @@ const createComment = function (req, res, incomingVenue,author) {
 const getUser=async(req,res,callback)=>{
     if(req.auth && req.auth.email){
         try{
-            await UserActivation.findOne({email:req.auth.email}).then(function(user){
+            await User.findOne({email:req.auth.email}).then(function(user){
                 callback(req,res,user.name);
             })
         }catch(error){
