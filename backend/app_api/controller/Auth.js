@@ -35,7 +35,6 @@ const signUp = async function (req, res) {
     } catch (error) {
         console.error("Hata Detayı:", error); // Vercel loglarında hatanın ismini görmek için
     
-    // Hangi hata olduğunu anlamak için spesifik mesajlar dönelim
     let mesaj = "Bir hata oluştu";
     
     if (error.name === "ValidationError") mesaj = "Veri doğrulama hatası: " + error.message;
@@ -59,7 +58,11 @@ const login = async function (req, res) {
     })(req, res);
 };
 const verifyAdmin = (req, res, next) => {
-    if (req.payload && req.payload.role == "admin") {
+    console.log("Payload:", req.payload);
+    console.log("Auth:", req.auth);
+    console.log("User:", req.user);
+    const userData=req.payload||req.auth||req.user;
+    if (userData && userData.role == "admin") {
         next();
     } else {
         res.status(403).json({ status: "Hata", message: "Bu işlem için admin yetkisi gerekiyor!" });
