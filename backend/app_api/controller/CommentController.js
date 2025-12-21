@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var Venue = mongoose.model("venue");
-
+var User=mongoose.model("user");
 const createResponse = function (res, status, content) {
     res.status(status).json(content);
 }
@@ -130,7 +130,7 @@ const getUser=async(req,res,callback)=>{
                 callback(req,res,user.name);
             })
         }catch(error){
-            createResponse(res,400,{status:"Kullanıcı bulunamadı"});
+            createResponse(res,400,{status:"Kullanıcı bulunamadı",error});
         }
     }else{
         createResponse(res,400,{status:"Token girilmedi"});
