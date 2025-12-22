@@ -54,9 +54,13 @@ const listVenues = function (req, res) {
 };
 const getAllVenues=async function (req,res){
     try {
-        await Venue.find(req.params).exec().then(function (venue){
-            createResponse(res,200,venue);
-        });
+       const venues= await Venue.find({}).exec();
+       if(venues.length>0){
+        createResponse(res,200,venues);
+       }
+       else{
+        createResponse(res,200,{status:"Henüz mekan eklenmemiş!"})
+       }
     } 
     catch (error) {
         createResponse(res,400,error);

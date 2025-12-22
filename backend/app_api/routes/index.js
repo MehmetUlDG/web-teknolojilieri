@@ -18,7 +18,8 @@ router.get("/", (req, res) => {
                 login:"POST /api/login"
             },
             venues: {
-                getAll: 'GET /api/venues',
+                getAll: 'GET /api/admin/venues',
+                nearBy: 'GET /api/venues',
                 getOne: 'GET /api/venues/:venueid',
                 create: 'POST /api/venues',
                 update: 'PUT /api/venues/:venueid',
@@ -48,7 +49,7 @@ router
     .route("/venues")
     .post(auth,ctrlAuth.verifyAdmin,ctrlVenues.addVenue);
 router
-    .route("/venues")
+    .route("/admin/venues")
     .get(auth,ctrlAuth.verifyAdmin,ctrlVenues.getAllVenues);
 router
     .route("/venues/:venueid")
