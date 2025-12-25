@@ -9,7 +9,7 @@ const http = axios.create({
   // Tüm API istekleri bu URL'e göre yapılır
   // Örnek: baseURL = "http://localhost:3000/api" ise
   // GET isteği -> "http://localhost:3000/api/venues" olur
-  baseURL: "https://web-teknolojilieri.vercel.app/api",
+  baseURL: import.meta.env.VITE_API_URL,
   
   // HTTP istek başlıkları (headers)
   // Her istekte otomatik olarak bu başlıklar gönderilir
