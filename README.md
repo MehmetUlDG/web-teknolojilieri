@@ -76,7 +76,7 @@ Mekanbul, kullanıcıların çevrelerindeki mekanları keşfetmesini ve yorum ya
 
 ## Canlı Linkler
 
-- **Vercel:** [https://mekanful-frontend.vercel.app](https://mekanful-frontend.vercel.app)
+- **Vercel:** [https://mekanbul-frontend-mu.vercel.app/](https://mekanbul-frontend-mu.vercel.app/)
 - **Localhost:** [http://localhost:5173/](http://localhost:5173/)
 
 ## 🚀 Kurulum ve Çalıştırma
@@ -106,6 +106,11 @@ npm run dev
 3. **About** - Hakkında sayfası
 4. **PageNotFound** - 404 sayfa bulunamadı sayfası
 5. **AddComment** - Yorum ekleme sayfası
+6. **LoginPage** - Giriş sayfası
+7. **SignUpPage** - Kayıt sayfası
+8. **AddVenue** - Mekan ekleme
+9. **UpdateVenue** - Mekan güncelleme
+10. **AdminPanel** - Yönetici Sayfası
 
 ### Layout Bileşenleri
 8. **Template** - Tüm sayfalar için ortak şablon (Navbar ve Footer içerir)
@@ -136,7 +141,12 @@ npm run dev
    - `nearbyVenues(lat, long)` - Yakındaki mekanları getirir
    - `getVenue(id)` - Belirli bir mekanı getirir
    - `addVenue(data, token)` - Yeni mekan ekler
-
+   - `getAllVenue()`-Tüm mekanları listeler
+   - `AddVenue(data)`   - mekan bilgisi ekler
+   - `updateVenue(id,data)`-mekan bilgisi günceller
+   - `deleteVenue(id)`-mekan bilgisi siler
+   - `login()`- Giriş işlemi yapar
+   - `signUp()`-Kayıt işlemi yapar
 ## Redux State Yönetimi
 
 1. **store.jsx** - Redux store yapılandırması
@@ -166,13 +176,19 @@ src/
 │   ├── Template.jsx
 │   ├── Venue.jsx
 │   ├── VenueDetail.jsx
-│   └── VenueList.jsx
+│   ├── AddVenue.jsx
+|   ├── AdminPanel.jsx
+|   ├── LogInPage.jsx
+|   ├── SignUpPage.jsx
+|   ├── UpdateVenue.jsx
+|   └── VenueList.jsx
 ├── redux/              # Redux store ve reducer
 │   ├── store.jsx
 │   └── reducer.jsx
 ├── services/           # API servisleri ve yardımcı fonksiyonlar
 │   ├── http-common.jsx
 │   ├── Utils.jsx
+|    ├── ProtectedRoute.jsx
 │   └── VenueDataService.jsx
 └── main.jsx            # Uygulama giriş noktası
 ```
@@ -193,6 +209,7 @@ src/
 
 ### Mevcut Özellikler
 - Mekan arama ve filtreleme
+- Mekan ekleme silme güncelleme
 - Mekan detay sayfası (harita, saatler, yorumlar)
 - Yorum ekleme ve görüntüleme
 - Yıldız puanlama sistemi
@@ -200,4 +217,5 @@ src/
 - Redux ile state yönetimi
 - React Router ile sayfa yönlendirme
 - Google Maps entegrasyonu
+- JWT token ile entegrasyon işlemi
 
