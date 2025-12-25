@@ -8,7 +8,6 @@ const createResponse = function (res, status, content) {
 };
 
 const signUp = async function (req, res) {
-    console.log(req.body);
     if (!req.body.name || !req.body.email || !req.body.password) {
         createResponse(res, 400, { status: "Tüm alanlar gereklidir!" });
     }
@@ -21,10 +20,10 @@ const signUp = async function (req, res) {
         user.role = "user";
     }
     if (req.body.password) {
-    user.setPassword(req.body.password);
-} else {
-    throw new Error("Şifre boş olamaz.");
-}
+        user.setPassword(req.body.password);
+    } else {
+        throw new Error("Şifre boş olamaz.");
+    }
     user.setPassword(req.body.password);
 
     try {
@@ -34,14 +33,16 @@ const signUp = async function (req, res) {
         });
     } catch (error) {
         console.error("Hata Detayı:", error); // Vercel loglarında hatanın ismini görmek için
-    
-    let mesaj = "Bir hata oluştu";
-    
-    if (error.name === "ValidationError") mesaj = "Veri doğrulama hatası: " + error.message;
-    if (error.code === 11000) mesaj = "Bu e-posta zaten kayıtlı!";
-    if (error.message.includes("JWT_SECRET")) mesaj = "Sunucu yapılandırma hatası (JWT)";
-        createResponse(res, 400, { status: "Kayıt başarısız!",mesaj: mesaj,
-        errorType: error.name });
+
+        let mesaj = "Bir hata oluştu";
+
+        if (error.name === "ValidationError") mesaj = "Veri doğrulama hatası: " + error.message;
+        if (error.code === 11000) mesaj = "Bu e-posta zaten kayıtlı!";
+        if (error.message.includes("JWT_SECRET")) mesaj = "Sunucu yapılandırma hatası (JWT)";
+        createResponse(res, 400, {
+            status: "Kayıt başarısız!", mesaj: mesaj,
+            errorType: error.name
+        });
     }
 };
 
@@ -58,10 +59,7 @@ const login = async function (req, res) {
     })(req, res);
 };
 const verifyAdmin = (req, res, next) => {
-    console.log("Payload:", req.payload);
-    console.log("Auth:", req.auth);
-    console.log("User:", req.user);
-    const userData=req.payload||req.auth||req.user;
+    const userData = req.payload || req.auth || req.user;
     if (userData && userData.role == "admin") {
         next();
     } else {

@@ -18,7 +18,8 @@ import SignUpPage from "./components/SignUpPage";
 import LogInPage from "./components/LogInPage";
 import AdminPanel from "./components/AdminPanel";
 import ProtectedRoute from "./services/ProtectedRoute.jsx";
-
+import AddVenue from "./components/AddVenue.jsx";
+import UpdateVenue from "./components/UpdateVenue.jsx";
 // React Router bileşenlerini içe aktar (sayfa yönlendirme için)
 // BrowserRouter: Tarayıcının URL'sini kullanarak sayfa geçişlerini yönetir (örn: /home, /about)
 // Routes: Tüm Route bileşenlerini bir arada tutan kapsayıcı
@@ -30,6 +31,7 @@ import store from "./redux/store.jsx";
 
 // Redux Provider'ı içe aktar (store'u tüm bileşenlere erişilebilir yapmak için)
 import { Provider } from "react-redux";
+
 
 // Uygulamayı başlat ve "root" id'li HTML elementine bağla
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -51,24 +53,30 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           {/* Home bileşeni Template'in içinde gösterilir (nested route) */}
           {/* Yani "/" adresinde hem Template hem de Home birlikte render edilir */}
           <Route path="/" element={<Home />} />
-          
+
           {/* Kayıt olma sayfası */}
           <Route path="signup" element={<SignUpPage />} />
 
           {/* Giriş yapma sayfası */}
           <Route path="login" element={<LogInPage />} />
 
-           {/* Hakkında sayfası - "/about" yolu */}
+          {/* Hakkında sayfası - "/about" yolu */}
           <Route path="about" element={<About />} />
-          
+
           {/* Mekan detay sayfası - "/venue/123" gibi */}
           <Route path="venue/:id" element={<VenueDetail />} />
-          
+
           {/* Yorum ekleme sayfası - "/venue/123/comment/new" gibi */}
           <Route path="venue/:id/comment/new" element={<AddComment />} />
-          
-          {/* Hakkında sayfası - "/about" yolu */}
-          <Route path="/admin" element={<AdminPanel />} />
+
+          {/* Admin paneli - "/admin" yolu */}
+          <Route path="/admin" element={<ProtectedRoute adminOnly={true}><AdminPanel /></ProtectedRoute>} />
+
+          {/*Mekan ekleme sayfası - "/venue/new" yolu */}
+          <Route path="/admin/venue/new" element={<ProtectedRoute adminOnly={true}><AddVenue /></ProtectedRoute>} />
+
+          {/*Mekan güncelleme sayfası - "/venue/update/:id" yolu */}
+          <Route path="/admin/venue/update/:id" element={<ProtectedRoute adminOnly={true}><UpdateVenue /></ProtectedRoute>} />
 
           {/* Bulunamayan tüm sayfalar için 404 */}
           <Route path="*" element={<PageNotFound />} />

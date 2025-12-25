@@ -1,6 +1,5 @@
 import Header from "./Header"; // Başlık bileşeni
 import { Formik, useFormik } from "formik";
-import React, { useState } from "react"; // React ve state hook'u
 import { useSelector, useDispatch } from "react-redux";
 import VenueDataService from "../services/VenueDataService";
 import { useNavigate } from 'react-router-dom';

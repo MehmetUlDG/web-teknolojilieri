@@ -1,17 +1,16 @@
 // Redux Reducer - Uygulama state'ini yönetir
 // Reducer, action'ları alır ve state'i günceller
 // State değişiklikleri immutable (değiştirilemez) olmalıdır
-
+const userFromStorage = JSON.parse(localStorage.getItem("user"));
 // Başlangıç state'i - Uygulama ilk açıldığında bu değerler kullanılır
 const initialState = {
   token: localStorage.getItem("userToken") || null,//Token getirme
-  isAuthenticated: !!localStorage.getItem("userToken")||false,//Kayıt durumu sorgulama 
-  user: null,//Kullanıcı bilgileri
+  isAuthenticated: userFromStorage ? true : false,//Kayıt durumu sorgulama 
   isError: false, // Hata durumu
   isLoading: false, // Yükleme durumu (API çağrıları için)
   isSuccess: false, // Başarı durumu
   data: [], // Mekan verileri
-  user: {}, // Kullanıcı bilgileri
+  user: userFromStorage ? userFromStorage : null, // Kullanıcı bilgileri
 }
 
 // Reducer fonksiyonu - State ve action alır, yeni state döndürür
@@ -89,6 +88,7 @@ const venueReducer = (state = initialState, action) => {
 
     case "LOGOUT":
        localStorage.removeItem("userToken");//Token silme 
+       localStorage.removeItem("user");//User nesnesini silme
       return{
        ...state,
        token:null,//Token yok
@@ -136,9 +136,9 @@ const venueReducer = (state = initialState, action) => {
         isDeleted: false // Silinmedi
       };
 
-    // Tanımlı olmayan action'lar için başlangıç state'ini döndür
+    // Tanımlı olmayan action'lar için mevcut state'ini döndür
     default:
-      return initialState;
+      return state;
   }
 };
 

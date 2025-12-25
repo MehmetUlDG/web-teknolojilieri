@@ -7,8 +7,7 @@ import HourList from "./HourList"; // Çalışma saatleri listesi bileşeni
 import CommentList from "./CommentList"; // Yorum listesi bileşeni
 import React from "react";
 import { useParams } from "react-router-dom"; // URL parametrelerini almak için
-import venuesData from "../data/venues.json"; // Mekan verileri (JSON dosyasından)
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import VenueDataService from "../services/VenueDataService";
 
 // Mekan detay sayfası bileşeni - Seçilen mekanın tüm bilgilerini gösterir
@@ -16,31 +15,34 @@ const VenueDetail = () => {
   // URL'den mekan ID'sini al (örn: /venue/123 -> id = "123")
   const { id } = useParams();
   const dispatch = useDispatch();
+  const { isAuthenticated } = useSelector((state) => ({
+    isAuthenticated: state.isAuthenticated
+  }));
   // Tüm mekanlar dizisi JSON dosyasından alınır (Home.jsx ile aynı kaynak)
   // Bu sayede veriler tek bir yerde tutulur ve değişiklikler kolaylaşır
   // Normalde bu veriler API'den veya Redux store'dan gelecek
-  
+
   // URL'den gelen id'ye göre mekanı bul
   // id string olarak gelir, bu yüzden Number() ile sayıya çeviriyoruz
-  const venue = useSelector((state)=>state.data);
-  React.useEffect(()=>{
-    dispatch({type:"FETCH_INIT"});
-    VenueDataService.getVenue(id).then((response)=>{
-      dispatch({type:"FETCH_SUCCESS",payload:response.data});
-    }).catch(()=>{
-      dispatch({type:"FETCH_FAILURE"});
+  const venue = useSelector((state) => state.data);
+  React.useEffect(() => {
+    dispatch({ type: "FETCH_INIT" });
+    VenueDataService.getVenue(id).then((response) => {
+      dispatch({ type: "FETCH_SUCCESS", payload: response.data });
+    }).catch(() => {
+      dispatch({ type: "FETCH_FAILURE" });
     })
-  },[])
+  }, [])
   // Eğer mekan bulunamazsa hata mesajı göster
   if (!venue) {
     return <div>Mekan bulunamadı!</div>;
   }
-  
+
   return (
     <div>
       {/* Sayfa başlığı - Mekan adını göster */}
       <Header headerText={venue.name} />
-      
+
       {/* Bootstrap container - İçeriği ortalar ve genişliği sınırlar */}
       <div className="container">
         {/* Bootstrap row - Yatay satır oluşturur */}
@@ -55,10 +57,10 @@ const VenueDetail = () => {
                 <p className="rating">
                   <Rating rating={venue.rating} />
                 </p>
-                
+
                 {/* Mekan adresi */}
                 <p>{venue.address}</p>
-                
+
                 {/* Açılış saatleri paneli */}
                 {/* Bootstrap panel: panel-primary (mavi renk teması) */}
                 <div className="panel panel-primary">
@@ -73,7 +75,7 @@ const VenueDetail = () => {
                     <HourList hourList={venue.hours || []} />
                   </div>
                 </div>
-                
+
                 {/* Yiyecek/içecek paneli */}
                 <div className="panel panel-primary">
                   <div className="panel-heading ">
@@ -85,7 +87,7 @@ const VenueDetail = () => {
                   </div>
                 </div>
               </div>
-              
+
               {/* Sağ kolon - Harita */}
               {/* Bootstrap grid: col-xs-12 (mobilde tam genişlik), col-sm-6 (küçük ekranda yarım genişlik) */}
               <div className="col-xs-12 col-sm-6">
@@ -101,18 +103,16 @@ const VenueDetail = () => {
                     <img
                       className="img img-responsive img-rounded"
                       alt="Konum Bilgisi"
-                      src={`https://maps.googleapis.com/maps/api/staticmap?center=${
-                        venue.coordinates
-                      }&zoom=12&size=600x400&markers=${
-                        venue.coordinates
-                      }&key=AIzaSyCmmKygTpBzHGOZEciJpAdxC9v_tWHagnE`}
+                      src={`https://maps.googleapis.com/maps/api/staticmap?center=${venue.coordinates
+                        }&zoom=12&size=600x400&markers=${venue.coordinates
+                        }&key=AIzaSyCmmKygTpBzHGOZEciJpAdxC9v_tWHagnE`}
                     />
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          
+
           {/* Yorumlar bölümü */}
           <div className="row">
             {/* Bootstrap grid: col-xs-12 (mobilde tam genişlik) */}
@@ -145,13 +145,16 @@ const VenueDetail = () => {
                     Bu sayede dinamik URL oluşturulur ve her mekan için
                     kendi yorum ekleme sayfasına yönlendirilir
                   */}
-                  <NavLink
-                    className="btn btn-default pull-right"
-                    to={`/venue/${id}/comment/new`}
-                    state={{ name: venue.name }}
-                  >
-                    Yorum Ekle{" "}
-                  </NavLink>
+                  {!isAuthenticated ? ((isAuthenticated == false)
+                  ) : (
+                    <NavLink
+                      className="btn btn-default pull-right"
+                      to={`/venue/${id}/comment/new`}
+                      state={{ name: venue.name }}
+                    >
+                      Yorum Ekle{" "}
+                    </NavLink>
+                  )}
                   <h2 className="panel-title ">Yorumlar</h2>
                 </div>
                 <div className="panel-body ">

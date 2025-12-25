@@ -25,14 +25,18 @@ const LogInPage = () => {
             try {
                 const response = await VenueDataService.login(values);
                 const token = response.data.token;
+                localStorage.setItem("userToken", token);
                 if (token) {
                     const payloadPart = token.split(".")[1];
                     const decodedToken = JSON.parse(atob(payloadPart));
                     const user = {
                         name: decodedToken.name,
                         email: decodedToken.email,
-                        role: decodedToken.role
+                        role: decodedToken.role,
+                        isAuthenticated: true
                     }
+                    localStorage.setItem("userToken", token);
+                    localStorage.setItem("user", JSON.stringify(user));
                     dispatch({ type: "LOGIN_SUCCESS", payload: { token, "user": user } });
                     resetForm();
                     if (user?.role == "admin") {

@@ -130,7 +130,6 @@ const getUser=async(req,res,callback)=>{
                 callback(req,res,user.name);
             })
         }catch(error){
-            console.log(error.message);
             createResponse(res,400,{status:"Kullanıcı bulunamadı"});
         }
     }else{

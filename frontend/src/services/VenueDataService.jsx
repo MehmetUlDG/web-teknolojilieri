@@ -4,14 +4,14 @@ import http from "./http-common";
 // Mekan verileri için API servis sınıfı
 // Backend API ile iletişim kurmak için kullanılır
 class VenueDataService {
-   //Kayıt olma işlemi yapar.Admin ismi ile girilirse yönetici(admin) rolü atanır.
-   signUp(user){
-    return http.post(`/signup`,user);
-   }
-   // Kayıt olunduktan sonra giriş işlemi yapar.
-   login(user){
-    return http.post(`/login`,user);
-   }
+  //Kayıt olma işlemi yapar.Admin ismi ile girilirse yönetici(admin) rolü atanır.
+  signUp(user) {
+    return http.post(`/signup`, user);
+  }
+  // Kayıt olunduktan sonra giriş işlemi yapar.
+  login(user) {
+    return http.post(`/login`, user);
+  }
 
   // Yakındaki mekanları getir - Koordinatlara göre arama yapar
   // lat: Enlem (latitude)
@@ -20,16 +20,17 @@ class VenueDataService {
   nearbyVenues(lat, long) {
     return http.get(`/venues?lat=${lat}&long=${long}`);
   }
-  
+
   // Belirli bir mekanı ID'ye göre getir
   // id: Mekan ID'si
   // Örnek: getVenue(123) -> /venues/123
   getVenue(id) {
     return http.get(`venues/${id}`);
   }
-  getAllVenue(){
-    const token=localStorage.getItem("userToken");
-    return http.get(`/admin/venues`,{
+  //Tüm mekanları listeler(Admin Panel için)
+  getAllVenue() {
+    const token = localStorage.getItem("userToken");
+    return http.get(`/admin/venues`, {
       headers: { Authorization: `Bearer ${token}` }, // Bearer token ile kimlik doğrulama
     });
   }
@@ -39,17 +40,42 @@ class VenueDataService {
   // token: JWT token (kimlik doğrulama için)
   // Authorization header'ı ile token gönderilir
   // Örnek: addVenue({name: "Kafe", address: "İstanbul"}, "abc123token")
-  addVenue(data, token) {
+  addVenue(data) {
+    const token = localStorage.getItem("userToken");
     return http.post("/venues", data, {
       headers: { Authorization: `Bearer ${token}` }, // Bearer token ile kimlik doğrulama
     });
   }
-  
+  //  Mekan güncelle - Kimlik doğrulama gerektirir
+  // data: Güncellenecek mekan bilgileri (name, address, coordinates vb.)
+  // token: JWT token (kimlik doğrulama için)
+  // Authorization header'ı ile token gönderilir
+  // id: Mekan ID'si
+  updateVenue(id,data) {
+    const token = localStorage.getItem("userToken");
+    return http.put(`/venues/${id}`, data, {
+      headers: { Authorization: `Bearer ${token}` }, // Bearer token ile kimlik doğrulama
+    });
+  }
+  // token: JWT token (kimlik doğrulama için)
+  // Authorization header'ı ile token gönderilir
+  // Mekan sil-Kimlik doğrulama gerektirir.
+  // id: Mekan ID'si
+  deleteVenue(id){
+    const token =localStorage.getItem("userToken");
+    return http.delete(`/venues/${id}`,{
+      headers:{Authorization:`Bearer ${token}`},
+    });
+  }
+
   // Yorum ekleme fonksiyonu (AddComment.jsx'te kullanılır)
   // Not: Bu fonksiyon şu an kodda yok ama AddComment.jsx'te kullanılıyor
-  // addComment(id, comment) {
-  //   return http.post(`/venues/${id}/comments`, comment);
-  // }
+  addComment(id, comment) {
+    const token = localStorage.getItem("userToken");
+    return http.post(`/venues/${id}/comments`, comment, {
+      headers: { Authorization: `Bearer ${token}` }, // Bearer token ile kimlik doğrulama
+    });
+  }
 }
 
 // Sınıfın bir instance'ını oluştur ve dışa aktar

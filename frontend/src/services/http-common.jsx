@@ -18,23 +18,10 @@ const http = axios.create({
     Accept: "application/json",
     
     // Gönderilen verinin formatını belirtir
-    // application/x-www-form-urlencoded: Form verileri için kullanılır
+    // application/json:JSON türü verileri için kullanılır
     // charset=UTF-8: Türkçe karakter desteği için
     "Content-Type": "application/json",
   },
 });
-
- http.interceptors.request.use(
-  (config)=>{
-    const token=localStorage.getItem("userToken");
-    if(token){
-      config.headers["Authorization"]=`Bearer${token}`;
-    }
-    return config;
-  },
-  (error)=>{
-    return Promise.reject(error);
-  }
-);
 
 export default http;
